@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Meal Tracker</title>
+  <link rel="stylesheet" href="/css/home.css" />
+</head>
+<body>
+
+  <header class="app-header">
+    <h1>🍽 Meal Tracker</h1>
+    <p>Smart calorie estimation — not guesswork</p>
+  </header>
+
+  <main class="container">
+
+    <!-- Add Meal -->
+    <section class="card">
+      <h2>Add Meal</h2>
+
+      <form method="POST" action="/add" class="form">
+
+        <label>Food</label>
+        <select name="food" required>
+          <option value="">Select food</option>
+
+          <option value="rice">Rice</option>
+          <option value="fried_rice">Fried Rice</option>
+          <option value="chapati">Chapati</option>
+          <option value="paratha">Paratha</option>
+          <option value="bread">Bread</option>
+
+          <option value="dal">Dal</option>
+          <option value="rajma">Rajma</option>
+          <option value="chole">Chole</option>
+          <option value="paneer_curry">Paneer Curry</option>
+          <option value="veg_curry">Veg Curry</option>
+
+          <option value="egg">Egg</option>
+          <option value="omelette">Omelette</option>
+          <option value="milk">Milk</option>
+          <option value="curd">Curd</option>
+
+          <option value="banana">Banana</option>
+          <option value="apple">Apple</option>
+          <option value="mango">Mango</option>
+
+          <option value="samosa">Samosa</option>
+          <option value="pakora">Pakora</option>
+          <option value="tea">Tea</option>
+          <option value="coffee">Coffee</option>
+        </select>
+
+        <div class="row">
+          <div>
+            <label>Quantity</label>
+            <input type="number" name="quantity" min="1" required />
+          </div>
+
+          <div>
+            <label>Unit</label>
+            <select name="unit">
+              <option value="plate">Plate</option>
+              <option value="piece">Piece</option>
+              <option value="cup">Cup</option>
+              <option value="bowl">Bowl</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit">Add Meal</button>
+      </form>
+    </section>
+
+    <!-- Total Calories -->
+    <section class="card highlight">
+      <h2>Total Calories Today</h2>
+      <div class="total">
+        <%= totalCalories %> <span>kcal</span>
+      </div>
+    </section>
+
+    <!-- Meals List -->
+    <section class="card">
+      <h2>Meals</h2>
+
+      <% if (meals.length === 0) { %>
+        <p class="empty">No meals added yet.</p>
+      <% } %>
+
+      <ul class="meal-list">
+        <% meals.forEach(m => { %>
+          <li>
+            <div>
+              <strong><%= m.food.replace("_", " ") %></strong>
+              <span><%= m.quantity %> <%= m.unit %></span>
+            </div>
+            <div class="calories">
+              <%= m.total %> kcal
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    </section>
+
+  </main>
+
+</body>
+</html>
