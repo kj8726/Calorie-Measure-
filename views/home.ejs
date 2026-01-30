@@ -89,18 +89,24 @@
       <% } %>
 
       <ul class="meal-list">
-        <% meals.forEach(m => { %>
-          <li>
-            <div>
-              <strong><%= m.food.replace("_", " ") %></strong>
-              <span><%= m.quantity %> <%= m.unit %></span>
-            </div>
-            <div class="calories">
-              <%= m.total %> kcal
-            </div>
-          </li>
-        <% }) %>
-      </ul>
+  <% meals.forEach(m => { %>
+    <li>
+      <div>
+        <strong><%= (m.food || "unknown").replace(/_/g, " ") %></strong>
+        <span><%= m.quantity %> <%= m.unit %></span>
+      </div>
+
+      <div class="right">
+        <span class="calories"><%= m.total %> kcal</span>
+
+        <form method="POST" action="/delete/<%= m._id %>">
+          <button class="delete-btn">✖</button>
+        </form>
+      </div>
+    </li>
+  <% }) %>
+</ul>
+
     </section>
 
   </main>
