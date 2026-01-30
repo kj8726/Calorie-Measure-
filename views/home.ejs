@@ -7,6 +7,7 @@
 </head>
 <body>
 
+  <!-- Header -->
   <header class="app-header">
     <h1>🍽 Meal Tracker</h1>
     <p>Smart calorie estimation — not guesswork</p>
@@ -20,6 +21,17 @@
 
       <form method="POST" action="/add" class="form">
 
+        <!-- Meal Type -->
+        <label>Meal Type</label>
+        <select name="mealType" required>
+          <option value="">Select meal</option>
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="snacks">Snacks / Evening</option>
+          <option value="dinner">Dinner</option>
+        </select>
+
+        <!-- Food -->
         <label>Food</label>
         <select name="food" required>
           <option value="">Select food</option>
@@ -51,6 +63,7 @@
           <option value="coffee">Coffee</option>
         </select>
 
+        <!-- Quantity + Unit -->
         <div class="row">
           <div>
             <label>Quantity</label>
@@ -80,34 +93,80 @@
       </div>
     </section>
 
-    <!-- Meals List -->
-    <section class="card">
-      <h2>Meals</h2>
+    <div class="filter-bar">
+  <a href="/">Today</a>
+  <a href="/yesterday">Yesterday</a>
+</div>
 
-      <% if (meals.length === 0) { %>
-        <p class="empty">No meals added yet.</p>
+
+    <!-- Meals -->
+    <section class="card">
+  <h2>Meals</h2>
+        <% if (Object.keys(groupedByDate).length === 0) { %>
+  <p class="empty">
+    No meals recorded for this day 🍽️
+  </p>
+<% } %>
+
+  <% 
+    const labels = {
+      breakfast: "🍳 Breakfast",
+      lunch: "🍛 Lunch",
+      snacks: "☕ Snacks / Evening",
+      dinner: "🌙 Dinner"
+    };
+
+    const formatDate = (d) =>
+      new Date(d).toLocaleDateString("en-IN", {
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+  %>
+
+  <% for (let key in groupedByDate) { %>
+    <div class="day-block">
+
+      <!-- Date Header -->
+      <div class="day-header">
+        <h3>📅 <%= formatDate(groupedByDate[key].date) %></h3>
+        <span class="day-total">
+          <%= groupedByDate[key].total %> kcal
+        </span>
+      </div>
+
+      <% for (let type in groupedByDate[key].meals) { %>
+        <% if (groupedByDate[key].meals[type].length > 0) { %>
+
+          <h4 class="meal-heading"><%= labels[type] %></h4>
+
+          <ul class="meal-list">
+            <% groupedByDate[key].meals[type].forEach(m => { %>
+              <li>
+                <div>
+                  <strong><%= (m.food || "unknown").replace(/_/g, " ") %></strong>
+                  <span><%= m.quantity %> <%= m.unit %></span>
+                </div>
+
+                <div class="right">
+                  <span class="calories"><%= m.total %> kcal</span>
+
+                  <form method="POST" action="/delete/<%= m._id %>">
+                    <button class="delete-btn">✖</button>
+                  </form>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+
+        <% } %>
       <% } %>
 
-      <ul class="meal-list">
-  <% meals.forEach(m => { %>
-    <li>
-      <div>
-        <strong><%= (m.food || "unknown").replace(/_/g, " ") %></strong>
-        <span><%= m.quantity %> <%= m.unit %></span>
-      </div>
+    </div>
+  <% } %>
+</section>
 
-      <div class="right">
-        <span class="calories"><%= m.total %> kcal</span>
-
-        <form method="POST" action="/delete/<%= m._id %>">
-          <button class="delete-btn">✖</button>
-        </form>
-      </div>
-    </li>
-  <% }) %>
-</ul>
-
-    </section>
 
   </main>
 

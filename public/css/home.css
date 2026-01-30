@@ -180,3 +180,68 @@ button:hover {
   color: #64748b;
   text-align: center;
 }
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #f87171;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  color: #ef4444;
+}
+
+
+.meal-heading {
+  margin: 16px 0 6px;
+  font-size: 15px;
+  color: #94a3b8;
+}
+
+.day-block {
+  margin-bottom: 24px;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.day-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.day-total {
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.meal-heading {
+  margin: 10px 0 4px;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.filter-bar a {
+  text-decoration: none;
+  color: #22c55e;
+  font-weight: 500;
+}

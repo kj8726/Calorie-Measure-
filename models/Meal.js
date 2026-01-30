@@ -14,7 +14,12 @@ const mealSchema = new mongoose.Schema({
     required: true,
   },
   total: {
-    type: Number, // total calories for this meal
+    type: Number,
+    required: true,
+  },
+  mealType: {
+    type: String,
+    enum: ["breakfast", "lunch", "snacks", "dinner"],
     required: true,
   },
   date: {
