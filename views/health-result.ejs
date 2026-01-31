@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Health Result</title>
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+<header class="app-header">
+  <h1>📊 Health Result</h1>
+</header>
+
+<main class="container">
+
+  <section class="card highlight">
+  <h2>Your BMI</h2>
+  <div class="total"><%= bmi %></div>
+  <p>Status: <strong><%= category %></strong></p>
+</section>
+
+<section class="card">
+  <h2>What you should focus on</h2>
+
+  <% if (category === "Underweight") { %>
+    <ul>
+      <li>Increase calorie intake gradually</li>
+      <li>Strength training 3–4 times/week</li>
+      <li>Protein-rich foods (dal, eggs, paneer)</li>
+    </ul>
+  <% } %>
+
+  <% if (category === "Normal") { %>
+    <ul>
+      <li>Maintain balanced diet</li>
+      <li>Stay active daily</li>
+      <li>Sleep 7–8 hours</li>
+    </ul>
+  <% } %>
+
+  <% if (category === "Overweight" || category === "Obese") { %>
+    <ul>
+      <li>Reduce portion sizes</li>
+      <li>Increase daily steps</li>
+      <li>Limit sugar and fried foods</li>
+    </ul>
+  <% } %>
+</section>
+
+
+  <a href="/home">
+    <button>Back to Home</button>
+  </a>
+
+</main>
+
+</body>
+</html>

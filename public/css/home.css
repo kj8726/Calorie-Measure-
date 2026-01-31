@@ -1,6 +1,4 @@
-/* ===============================
-   Global Reset & Base
-================================ */
+/* ===== Base ===== */
 * {
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -12,12 +10,19 @@ body {
   color: #e5e7eb;
 }
 
-/* ===============================
-   Header
-================================ */
+/* ===== Header ===== */
 .app-header {
-  text-align: center;
   padding: 32px 16px;
+}
+
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-bar .title {
+  text-align: left;
 }
 
 .app-header h1 {
@@ -30,18 +35,27 @@ body {
   color: #94a3b8;
 }
 
-/* ===============================
-   Layout
-================================ */
+.logout-btn {
+  background: #ef4444;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+/* ===== Layout ===== */
 .container {
   max-width: 520px;
   margin: auto;
   padding: 16px;
 }
 
-/* ===============================
-   Cards
-================================ */
+/* ===== Cards ===== */
 .card {
   background: #020617;
   border: 1px solid #1f2937;
@@ -55,9 +69,22 @@ body {
   font-size: 18px;
 }
 
-/* ===============================
-   Forms
-================================ */
+.highlight {
+  text-align: center;
+}
+
+.total {
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.total span {
+  font-size: 16px;
+  color: #94a3b8;
+}
+
+/* ===== Forms ===== */
 .form label {
   font-size: 13px;
   color: #94a3b8;
@@ -100,27 +127,7 @@ button:hover {
   background: #16a34a;
 }
 
-/* ===============================
-   Total Calories Highlight
-================================ */
-.highlight {
-  text-align: center;
-}
-
-.total {
-  font-size: 36px;
-  font-weight: 700;
-  margin-top: 10px;
-}
-
-.total span {
-  font-size: 16px;
-  color: #94a3b8;
-}
-
-/* ===============================
-   Filter Bar
-================================ */
+/* ===== Filter ===== */
 .filter-bar {
   display: flex;
   gap: 12px;
@@ -133,9 +140,21 @@ button:hover {
   font-weight: 500;
 }
 
-/* ===============================
-   Meals List
-================================ */
+/* ===== Progress Bar ===== */
+.progress {
+  width: 100%;
+  height: 14px;
+  background: #1f2937;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+/* ===== Meals ===== */
 .meal-list {
   list-style: none;
   padding: 0;
@@ -163,9 +182,6 @@ button:hover {
   font-weight: 600;
 }
 
-/* ===============================
-   Delete Button
-================================ */
 .right {
   display: flex;
   align-items: center;
@@ -184,9 +200,7 @@ button:hover {
   color: #ef4444;
 }
 
-/* ===============================
-   Date Grouping
-================================ */
+/* ===== Date Grouping ===== */
 .day-block {
   margin-bottom: 24px;
 }
@@ -214,10 +228,91 @@ button:hover {
   color: #94a3b8;
 }
 
-/* ===============================
-   Empty State
-================================ */
+/* ===== Empty ===== */
 .empty {
   color: #64748b;
   text-align: center;
+}
+
+/* ===== Goal Card ===== */
+.goal-box {
+  background: #020617;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.goal-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.goal-label {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.goal-value {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.goal-form {
+  display: flex;
+  gap: 10px;
+}
+
+.goal-form input {
+  flex: 1;
+  padding: 10px;
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #e5e7eb;
+}
+
+.goal-form button {
+  padding: 10px 16px;
+  background: #22c55e;
+  color: #022c22;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.goal-form button:hover {
+  background: #16a34a;
+}
+
+.goal-summary {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+
+/* Header actions (right side buttons) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Health Check button */
+.health-btn {
+  background: #38bdf8;
+  color: #022c22;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.health-btn:hover {
+  background: #0ea5e9;
 }

@@ -8,10 +8,21 @@
 <body>
 
   <!-- Header -->
-  <header class="app-header">
+  <header class="app-header header-bar">
+  <div class="title">
     <h1>🍽 Meal Tracker</h1>
     <p>Smart calorie estimation — not guesswork</p>
-  </header>
+  </div>
+
+  <% if (user) { %>
+    <div class="header-actions">
+      <a href="/health" class="health-btn">🧠 Health Check</a>
+      <a href="/auth/logout" class="logout-btn">Logout</a>
+    </div>
+  <% } %>
+</header>
+
+
 
   <main class="container">
 
@@ -94,9 +105,70 @@
     </section>
 
     <div class="filter-bar">
-  <a href="/">Today</a>
+  <a href="/home">Today</a>
   <a href="/yesterday">Yesterday</a>
 </div>
+<section class="card">
+  <h2>Daily Calorie Goal</h2>
+
+  <section class="card">
+  <h2>Daily Calorie Goal</h2>
+
+  <div class="goal-box">
+    <div class="goal-info">
+      <span class="goal-label">Goal</span>
+      <span class="goal-value"><%= goal || 2200 %> kcal</span>
+    </div>
+
+    <form method="POST" action="/goal" class="goal-form">
+      <input
+        type="number"
+        name="dailyGoal"
+        min="800"
+        max="6000"
+        placeholder="Set new goal"
+        required
+      />
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <div class="progress">
+    <div
+      class="progress-bar"
+      style="
+        width: <%= percent || 0 %>%;
+        background:
+          <%= percent < 80 ? '#22c55e' :
+              percent < 100 ? '#facc15' :
+              '#ef4444' %>;
+      ">
+    </div>
+  </div>
+
+  <p class="goal-summary">
+    <%= totalCalories %> / <%= goal || 2200 %> kcal
+  </p>
+</section>
+
+
+  <div class="progress">
+    <div
+      class="progress-bar"
+      style="
+        width: <%= percent || 0%>%;
+        background:
+          <%= percent < 80 ? '#22c55e' :
+              percent < 100 ? '#facc15' :
+              '#ef4444' %>;
+      ">
+    </div>
+  </div>
+
+  <p style="text-align:center; margin-top:8px; color:#94a3b8">
+    <%= totalCalories %> / <%= goal %> kcal
+  </p>
+</section>
 
 
     <!-- Meals -->
