@@ -34,6 +34,8 @@ router.post("/delete/:id", mealController.deleteMeal);
 module.exports = router;
 
 router.post("/goal", mealController.updateGoal);
+router.get("/weekly", mealController.getWeeklySummary);
+
 
 router.get("/health", healthController.getHealth);
 router.post("/health", healthController.postHealth);

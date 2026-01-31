@@ -74,7 +74,41 @@ exports.getHome = async (req, res) => {
   const goal = req.user.dailyGoal;
 const percent = Math.min((totalCalories / goal) * 100, 150);
 
-  res.render("home", { groupedByDate, totalCalories,goal,percent });
+// Yesterday calories (simple)
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+yesterday.setHours(0, 0, 0, 0);
+
+const yesterdayEnd = new Date(yesterday);
+yesterdayEnd.setHours(23, 59, 59, 999);
+
+const yesterdayMeals = await Meal.find({
+  user: req.user._id,
+  date: { $gte: yesterday, $lte: yesterdayEnd },
+});
+
+const yesterdayCalories = yesterdayMeals.reduce(
+  (sum, m) => sum + m.total,
+  0
+);
+
+// 🧠 Insight
+const insight = getDailyInsight(
+  totalCalories,
+  req.user.dailyGoal,
+  yesterdayCalories
+);
+
+
+  res.render("home", {
+  groupedByDate,
+  totalCalories,
+  goal: req.user.dailyGoal,
+  percent,
+  insight,
+  user: req.user,
+});
+
 };
 
 /* ===============================
@@ -167,3 +201,86 @@ exports.updateGoal = async (req, res) => {
 
   res.redirect("/home");
 };
+
+exports.getWeeklySummary = async (req, res) => {
+  if (!req.user) return res.redirect("/");
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const start = new Date(today);
+  start.setDate(start.getDate() - 6); // last 7 days incl today
+
+  const meals = await Meal.find({
+    user: req.user._id,
+    date: { $gte: start, $lte: today },
+  });
+
+  // Prepare 7-day structure
+  const days = {};
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(start);
+    d.setDate(start.getDate() + i);
+    const key = d.toISOString().split("T")[0];
+    days[key] = {
+      date: new Date(d),
+      total: 0,
+    };
+  }
+
+  // Sum calories per day
+  meals.forEach(m => {
+    const key = m.date.toISOString().split("T")[0];
+    if (days[key]) {
+      days[key].total += m.total;
+    }
+  });
+
+  const dailyGoal = req.user.dailyGoal;
+  let sum = 0;
+  let underGoal = 0;
+  let overGoal = 0;
+
+  Object.values(days).forEach(d => {
+    sum += d.total;
+    if (d.total <= dailyGoal) underGoal++;
+    else overGoal++;
+  });
+
+  const average = Math.round(sum / 7);
+
+  res.render("weekly", {
+    days: Object.values(days),
+    dailyGoal,
+    average,
+    underGoal,
+    overGoal,
+  });
+};
+
+
+function getDailyInsight(totalCalories, goal, yesterdayCalories) {
+  if (totalCalories === 0) {
+    return "You haven’t logged any meals today 🍽️";
+  }
+
+  const percent = (totalCalories / goal) * 100;
+
+  if (percent < 40) {
+    return "Light intake so far — don’t forget your meals 🍎";
+  }
+
+  if (percent < 80) {
+    return "You’re on track today 👍";
+  }
+
+  if (percent <= 100) {
+    return "Almost at your goal — stay balanced 🎯";
+  }
+
+  if (percent > 100 && totalCalories <= yesterdayCalories) {
+    return "You crossed your goal, but improved from yesterday 👏";
+  }
+
+  return "You’ve crossed your calorie goal today ⚠️";
+}

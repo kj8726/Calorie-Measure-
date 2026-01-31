@@ -25,6 +25,11 @@
 
 
   <main class="container">
+    <section class="card insight-card">
+  <h2>💡 Daily Insight</h2>
+  <p><%= insight %></p>
+</section>
+
 
     <!-- Add Meal -->
     <section class="card">
@@ -105,9 +110,15 @@
     </section>
 
     <div class="filter-bar">
-  <a href="/home">Today</a>
-  <a href="/yesterday">Yesterday</a>
+  <div class="filter-left">
+    <a href="/yesterday">Yesterday</a>
+    <a href="/home">Today</a>
+    <a href="/weekly" class="weekly-link">📊 Weekly</a>
+  </div>
+
+  
 </div>
+
 <section class="card">
   <h2>Daily Calorie Goal</h2>
 

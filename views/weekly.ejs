@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weekly Summary</title>
+  <link rel="stylesheet" href="/css/home.css" />
+</head>
+<body>
+
+<header class="app-header header-bar">
+  <div class="title">
+    <h1>📊 Weekly Summary</h1>
+    <p>Last 7 days overview</p>
+  </div>
+
+  <a href="/home" class="health-btn">← Back</a>
+</header>
+
+<main class="container">
+
+  <section class="card highlight">
+    <h2>Weekly Average</h2>
+    <div class="total"><%= average %> <span>kcal</span></div>
+  </section>
+
+  <section class="card">
+    <h2>Goal Performance</h2>
+    <p>✅ Days under goal: <strong><%= underGoal %></strong></p>
+    <p>❌ Days over goal: <strong><%= overGoal %></strong></p>
+  </section>
+
+  <section class="card">
+    <h2>Daily Breakdown</h2>
+
+    <ul class="meal-list">
+      <% days.forEach(d => { %>
+        <li>
+          <div>
+            <strong>
+              <%= d.date.toLocaleDateString("en-IN", {
+                weekday: "short",
+                day: "numeric",
+                month: "short",
+              }) %>
+            </strong>
+          </div>
+
+          <span
+            class="calories"
+            style="color:<%= d.total <= dailyGoal ? '#22c55e' : '#ef4444' %>">
+            <%= d.total %> kcal
+          </span>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+
+</main>
+
+</body>
+</html>

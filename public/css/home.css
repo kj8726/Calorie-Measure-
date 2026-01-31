@@ -305,7 +305,7 @@ button:hover {
 
 /* Health Check button */
 .health-btn {
-  background: #38bdf8;
+
   color: #022c22;
   padding: 8px 14px;
   border-radius: 8px;
@@ -313,6 +313,47 @@ button:hover {
   font-weight: 600;
 }
 
-.health-btn:hover {
-  background: #0ea5e9;
+/* ===== Filter Bar ===== */
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filter-left,
+.filter-right {
+  display: flex;
+  gap: 14px;
+}
+
+.filter-bar a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+/* Weekly emphasis */
+.weekly-link {
+  color: #a855f7;
+}
+
+.weekly-link:hover {
+  color: #9333ea;
+}
+
+.health-btn{
+  background-color: #16a34a;
+}
+
+/* Insight Card */
+.insight-card {
+  background: linear-gradient(135deg, #020617, #020617);
+  border-left: 4px solid #22c55e;
+}
+
+.insight-card p {
+  margin: 8px 0 0;
+  color: #cbd5f5;
+  font-size: 14px;
 }
